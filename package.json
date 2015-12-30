@@ -1,0 +1,21 @@
+{
+  "name": "kanban_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "keywords": [],
+  "author": "Jeff Pinkston <jeffpinkston@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "html-webpack-plugin": "^1.7.0",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0",
+    "webpack-merge": "^0.6.0"
+  }
+}
