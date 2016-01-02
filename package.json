@@ -13,6 +13,7 @@
   "devDependencies": {
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.0",
+    "babel-plugin-react-transform": "^2.0.0",
     "babel-plugin-syntax-class-properties": "^6.3.13",
     "babel-plugin-syntax-decorators": "^6.3.13",
     "babel-plugin-syntax-object-rest-spread": "^6.3.13",
@@ -23,12 +24,19 @@
     "babel-preset-react": "^6.3.13",
     "css-loader": "^0.23.1",
     "html-webpack-plugin": "^1.7.0",
+    "html-webpack-template": "^2.5.1",
+    "react-transform-hmr": "^1.0.1",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0",
     "webpack-merge": "^0.6.0"
   },
   "dependencies": {
+    "alt": "^0.18.1",
+    "alt-container": "^1.0.0",
+    "alt-utils": "^1.0.0",
+    "node-uuid": "^1.4.7",
+    "object-assign": "^4.0.1",
     "react": "^0.14.5",
     "react-dom": "^0.14.5"
   }
