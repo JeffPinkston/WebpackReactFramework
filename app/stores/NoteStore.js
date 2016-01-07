@@ -1,37 +1,51 @@
 import uuid from 'node-uuid';
+import assign from 'object-assign';
 import alt from '../libs/alt';
 import NoteActions from '../actions/NoteActions';
 
 class NoteStore {
-	constructor() {
-		this.bindActions(NoteActions);
-		this.notes = [];
-	}
-	create(note){
-		const notes = this.notes;
+  constructor() {
+    this.bindActions(NoteActions);
 
-		note.id = uuid.v4();
+    this.notes = [];
 
-		this.setState({
-			notes: notes.concat(note)
-		});
-	}
-	update(updatedNote){
-		const notes = this.notes.map((note) => {
-			if(note.id === updatedNote.id) {
-				note = assign({}, note, updatedNote);
-			}
+    this.exportPublicMethods({
+      get: this.get.bind(this)
+    });
+  }
+  create(note) {
+    const notes = this.notes;
 
-			return note;
-		});
+    note.id = uuid.v4();
+    note.editing = true;
 
-		this.setState({notes});
-	}
-	delete(id){
-		this.setState({
-			notes: this.notes.filter((note) => note.id !== id)
-		});
-	}
+    this.setState({
+      notes: notes.concat(note)
+    });
+
+    return note;
+  }
+  update(updatedNote) {
+    const notes = this.notes.map((note) => {
+      if(note.id === updatedNote.id) {
+        note = assign({}, note, updatedNote);
+      }
+
+      return note;
+    });
+
+    this.setState({notes});
+  }
+  delete(id) {
+    this.setState({
+      notes: this.notes.filter((note) => note.id !== id)
+    });
+  }
+  get(ids) {
+    return (ids || []).map(
+      (id) => this.notes.filter((note) => note.id === id)
+    ).filter((a) => a.length).map((a) => a[0]);
+  }
 }
 
 export default alt.createStore(NoteStore, 'NoteStore');

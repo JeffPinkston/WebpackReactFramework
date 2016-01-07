@@ -1,59 +1,34 @@
 import React from 'react';
+import {DragSource, DropTarget} from 'react-dnd';
+import ItemTypes from '../constants/itemTypes';
 
-class Note extends React.Component {
-    constructor(props) {
-        super(props);
-        this.displayName = 'Note';
-        this.state = {
-        	editing: false
-        };
-    }
-    render() {
-        if(this.state.editing){
-        	return this.renderEdit();
-        }
+const noteSource = {
+	beginDrag(props) {
+		console.log('begin draggin note');
+		return {};
+	}
+};
 
-        return this.renderNote();
-    }
-    renderEdit = () =>{
-    	return <input type ="text" 
-    		autoFocus={true}
-    		defaultValue={this.props.task}
-    		onBlur={this.finishEdit}
-    		onKeyPress={this.checkEnter} />;
-    }
-    renderNote = () =>{
-    	const onDelete = this.props.onDelete;
+const noteTarget = {
+	hover(targetProps, monitor) {
+		const sourceProps = monitor.getItem();
 
-    	return (
-			<div onClick={this.edit}>
-				<span className="task">{this.props.task}</span>
-				{onDelete ? this.renderDelete() : null}
-			</div>	
-		);
-    }
-    renderDelete = () => {
-    	return <button className="delete" onClick={this.props.onDelete}>x</button>;
-    }
-    edit = () => {
-    	this.setState({
-    		editing: true
-    	});
-    }
-    checkEnter = (e) => {
-    	if(e.key === 'Enter'){
-    		this.finishEdit(e);
-    	}
-    }
-    finishEdit = (e) => {
-    	if(this.props.onEdit) {
-    		this.props.onEdit(e.target.value);
-    	}
+		console.log('dragging note', sourceProps, targetProps);
+	}
+};
 
-    	this.setState({
-    		editing: false
-    	});
-    }
+@DragSource(ItemTypes.NOTE, noteSource, (connect) => ({
+	connectDragSource: connect.dragSource()
+}))
+@DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
+	connectDropTarget: connect.dropTarget()
+}))
+export default class Note extends React.Component {
+	render() {
+		const {connectDragSource, connectDropTarget, id, onMove, ...props} = this.props;
+
+		return connectDragSource(connectDropTarget(
+			<li {...props}>{props.children}</li>
+		));
+	}
 }
-
-export default Note;
