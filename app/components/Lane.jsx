@@ -22,6 +22,7 @@ const noteTarget = {
   }
 };
 
+
 @DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
   connectDropTarget: connect.dropTarget()
 }))
