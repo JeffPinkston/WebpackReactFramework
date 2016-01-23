@@ -1,4 +1,5 @@
 export default {
 	NOTE: 'note',
-	LANE: 'lane'
+	LANE: 'lane',
+	CONCERT: 'concert'
 }
